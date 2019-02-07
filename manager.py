@@ -5,17 +5,20 @@ class Manager(object):
     def add(self):
         from item import Item
         self.print()
+        print("What would you like to add?")
+        newText = input("> ")
+        item = Item(newText)
+        todos = open("todos.txt", "a")
+        todos.write(f"[{item.time}| ")
+        todos.write(f"{item.text}]\n")
         print("Would you like to add another item?")
         answer = input("> ")
         if 'y' in answer:
-            print("What would you like to add?")
-            newText = input("> ")
-            item = Item(newText)
-            todos = open("todos.txt", "a")
-            todos.write(f"[{item.time}| ")
-            todos.write(f"{item.text}]\n")
             todos.close()
             self.add()
+        else:
+            todos.close()
+            self.print()
 
     def print(self):
         todos = open("todos.txt", "r")
@@ -61,6 +64,9 @@ class Manager(object):
             todos.close()
             #reiterates
             self.complete()
+        else:
+            todos.close()
+            self.print()
 
     #if nothing print nothing, if items print list
 
