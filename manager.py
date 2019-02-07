@@ -6,9 +6,13 @@ class Manager(object):
 
     def add(self, item):
         todos = open("todos.txt", "a")
-        todos.write(f"{item.time}\n")
-        todos.write(f"{item.completed}\n")
-        todos.write(f"{item.text}\n")
+        todos.write(f"\n{item.time}")
+        todos.write(f"\n{item.completed}")
+        todos.write(f"\n{item.text}")
+
+    def print(self):
+        todos = open("todos.txt", "r")
+        print(todos.read())
 
     #if nothing print nothing, if items print list
 

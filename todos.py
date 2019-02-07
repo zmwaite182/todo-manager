@@ -6,3 +6,5 @@ from manager import Manager
 foo = Item("Yo")
 blah = Manager()
 blah.add(foo)
+
+blah.print()
