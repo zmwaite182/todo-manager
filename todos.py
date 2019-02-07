@@ -5,3 +5,4 @@ from manager import Manager
 
 manager = Manager()
 manager.add()
+manager.complete()
