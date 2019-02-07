@@ -2,6 +2,24 @@
 
 class Manager(object):
 
+    def guide(self):
+        print("What would you like to do?")
+        print("1. View List")
+        print("2. Add to List")
+        print("3. Complete Task on list")
+        print("4. Quit")
+        choice = input("> ")
+        if int(choice) == 1:
+            self.print()
+        elif int(choice) == 2:
+            self.add()
+        elif int(choice) == 3:
+            self.complete()
+        elif int(choice) == 4:
+            exit(0)
+        else:
+            self.guide()
+
     def add(self):
         from item import Item
         self.print()
@@ -19,6 +37,7 @@ class Manager(object):
         else:
             todos.close()
             self.print()
+        self.guide()
 
     def print(self):
         todos = open("todos.txt", "r")
@@ -26,48 +45,29 @@ class Manager(object):
         todos.close()
 
     def complete(self):
-        #opens text file to read
         todos = open("todos.txt", "r")
-        #sets lines equal to a list of strings of each task
         lines = todos.readlines()
-        #initializes newLines, a new list to be printed
         newLines = []
-        #prints list
         self.print()
-        #question
         print("Which item have you completed?")
-        #sets input as a number called answer
         answer = int(input("> "))
-        #closes file
         todos.close()
-        #re-opens file to rewrite
         todos = open("todos.txt", "w")
-        #cycles through each task in the "lines" list
+        check = f"\u221a"
         for line in lines:
-            #sets index equal to the index(number) of each line
             index = lines.index(line) + 1
-            #if the index is equal to the answer given...
             if index != answer:
-                # add the line to the list of newLines
                 newLines.append(line)
-        #cycles through each line in the adjusted text
+            else:
+                newLines.append(f"{check} {line}")
         for line in newLines:
-            #prints each line
             todos.write(line)
-        #Question
         print("Is there anything else you have completed?")
-        #accepts input as complete
         complete = input("> ")
-        #if yes...
         if 'y' in complete:
-            #closes file
             todos.close()
-            #reiterates
             self.complete()
         else:
             todos.close()
             self.print()
-
-    #if nothing print nothing, if items print list
-
-    #type "add *" and add list item of "*"
+        self.guide()
