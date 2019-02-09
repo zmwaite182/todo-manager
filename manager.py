@@ -7,7 +7,8 @@ class Manager(object):
         print("1. View List")
         print("2. Add to List")
         print("3. Complete Task on list")
-        print("4. Quit")
+        print("4. Remove Task from list")
+        print("5. Quit")
         choice = input("> ")
         if int(choice) == 1:
             self.print()
@@ -73,18 +74,24 @@ class Manager(object):
             self.print()
         self.guide()
 
-        def remove(self):
-            #gather file info
-            print("Which line would you like to remove?(line #)")
-            answer = int(input("> "))
-            #for each line
-                #if index != answer
-                    #write line back to file
-            print("Is there anything else you would like to remove?")
-            answer2 = input("> ")
-            #if answer2 has y
-                #reiterate
-            #else
-                #close file
-                #print list
-            #run through guide
+    def remove(self):
+        todos = open("todos.txt", "r")
+        lines = todos.readlines()
+        todos.close()
+        self.print()
+        print("Which line would you like to remove?(line #)")
+        answer = int(input("> "))
+        todos = open("todos.txt", "w")
+        for line in lines:
+            index = lines.index(line) + 1
+            if index != answer:
+                todos.write(line)
+        print("Is there anything else you would like to remove?")
+        answer2 = input("> ")
+        if 'y' in answer2:
+            todos.close()
+            self.remove()
+        else:
+            todos.close()
+            self.print()
+        self.guide()
