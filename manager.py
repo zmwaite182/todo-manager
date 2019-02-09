@@ -16,6 +16,8 @@ class Manager(object):
         elif int(choice) == 3:
             self.complete()
         elif int(choice) == 4:
+            self.remove()
+        elif int(choice) == 5:
             exit(0)
         else:
             self.guide()
@@ -70,3 +72,6 @@ class Manager(object):
             todos.close()
             self.print()
         self.guide()
+
+        def remove(self):
+            pass
