@@ -74,4 +74,17 @@ class Manager(object):
         self.guide()
 
         def remove(self):
-            pass
+            #gather file info
+            print("Which line would you like to remove?(line #)")
+            answer = int(input("> "))
+            #for each line
+                #if index != answer
+                    #write line back to file
+            print("Is there anything else you would like to remove?")
+            answer2 = input("> ")
+            #if answer2 has y
+                #reiterate
+            #else
+                #close file
+                #print list
+            #run through guide
