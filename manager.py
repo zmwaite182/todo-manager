@@ -27,8 +27,7 @@ class Manager(object):
         newText = input("> ")
         item = Item(newText)
         todos = open("todos.txt", "a")
-        todos.write(f"[{item.time}| ")
-        todos.write(f"{item.text}]\n")
+        todos.write(f"[{item.time}|{item.text}]\n")
         print("Would you like to add another item?")
         answer = input("> ")
         if 'y' in answer:
@@ -47,13 +46,13 @@ class Manager(object):
     def complete(self):
         todos = open("todos.txt", "r")
         lines = todos.readlines()
-        newLines = []
-        self.print()
-        print("Which item have you completed?")
-        answer = int(input("> "))
         todos.close()
-        todos = open("todos.txt", "w")
+        self.print()
+        print("Which item have you completed?(line #)")
+        answer = int(input("> "))
         check = f"\u221a"
+        newLines = []
+        todos = open("todos.txt", "w")
         for line in lines:
             index = lines.index(line) + 1
             if index != answer:
