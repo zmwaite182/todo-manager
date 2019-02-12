@@ -30,7 +30,7 @@ class Manager(object):
         newText = input("> ")
         item = Item(newText)
         todos = open("todos.txt", "a")
-        todos.write(f"[{item.time}|{item.text}]\n")
+        todos.write(f"{item.completed}|{item.text}|{item.time}\n")
         print("Would you like to add another item?")
         answer = input("> ")
         if 'y' in answer:
@@ -43,7 +43,14 @@ class Manager(object):
 
     def print(self):
         todos = open("todos.txt", "r")
-        print(todos.read())
+        lines = todos.readlines()
+        for line in lines:
+            index = lines.index(line) + 1
+            innerLine = line.split('|')
+            if innerLine[0] == str(True):
+                print(f"\u221a|{index}. {innerLine[1]}|{innerLine[2]}")
+            else:
+                print(f"\u0d4f|{index}. {innerLine[1]}|{innerLine[2]}")
         todos.close()
 
     def complete(self):
@@ -53,16 +60,13 @@ class Manager(object):
         self.print()
         print("Which item have you completed?(line #)")
         answer = int(input("> "))
-        check = f"\u221a"
-        newLines = []
         todos = open("todos.txt", "w")
         for line in lines:
             index = lines.index(line) + 1
-            if index != answer:
-                newLines.append(line)
-            else:
-                newLines.append(f"{check} {line}")
-        for line in newLines:
+            innerLine = line.split('|')
+            if index == answer:
+                innerLine[0] = str(True)
+                line = '|'.join(innerLine)
             todos.write(line)
         print("Is there anything else you have completed?")
         complete = input("> ")
