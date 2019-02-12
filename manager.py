@@ -7,7 +7,8 @@ class Manager(object):
         print("1. View List")
         print("2. Add to List")
         print("3. Complete Task on list")
-        print("4. Quit")
+        print("4. Remove Task from list")
+        print("5. Quit")
         choice = input("> ")
         if int(choice) == 1:
             self.print()
@@ -16,6 +17,8 @@ class Manager(object):
         elif int(choice) == 3:
             self.complete()
         elif int(choice) == 4:
+            self.remove()
+        elif int(choice) == 5:
             exit(0)
         else:
             self.guide()
@@ -27,8 +30,7 @@ class Manager(object):
         newText = input("> ")
         item = Item(newText)
         todos = open("todos.txt", "a")
-        todos.write(f"[{item.time}| ")
-        todos.write(f"{item.text}]\n")
+        todos.write(f"[{item.time}|{item.text}]\n")
         print("Would you like to add another item?")
         answer = input("> ")
         if 'y' in answer:
@@ -47,13 +49,13 @@ class Manager(object):
     def complete(self):
         todos = open("todos.txt", "r")
         lines = todos.readlines()
-        newLines = []
-        self.print()
-        print("Which item have you completed?")
-        answer = int(input("> "))
         todos.close()
-        todos = open("todos.txt", "w")
+        self.print()
+        print("Which item have you completed?(line #)")
+        answer = int(input("> "))
         check = f"\u221a"
+        newLines = []
+        todos = open("todos.txt", "w")
         for line in lines:
             index = lines.index(line) + 1
             if index != answer:
@@ -67,6 +69,28 @@ class Manager(object):
         if 'y' in complete:
             todos.close()
             self.complete()
+        else:
+            todos.close()
+            self.print()
+        self.guide()
+
+    def remove(self):
+        todos = open("todos.txt", "r")
+        lines = todos.readlines()
+        todos.close()
+        self.print()
+        print("Which line would you like to remove?(line #)")
+        answer = int(input("> "))
+        todos = open("todos.txt", "w")
+        for line in lines:
+            index = lines.index(line) + 1
+            if index != answer:
+                todos.write(line)
+        print("Is there anything else you would like to remove?")
+        answer2 = input("> ")
+        if 'y' in answer2:
+            todos.close()
+            self.remove()
         else:
             todos.close()
             self.print()
